@@ -1,0 +1,7 @@
+powershell
+cd c:\libs
+git clone -b master https://github.com/pocoproject/poco.git
+cd poco
+Optionally remove unnecessary items from the components file (CppUnit, Foundation, Encodings, XML, JSON, Util, Net, Crypto, NetSSL_OpenSSL, NetSSL_Win)
+Add libssl.lib, libcrypto.lib dependencies to release_shared, debug_shared configurations in Crypto_x64_vs150.sln, NetSSL_OpenSSL_x64_vs150.sln
+.\buildwin.ps1 -vs_version 150 -action build -linkmode shared -config both -platform x64 -samples -tool msbuild -openssl_base C:\libs\openssl\1.1.1\x64 | Tee-Object -FilePath build.log
