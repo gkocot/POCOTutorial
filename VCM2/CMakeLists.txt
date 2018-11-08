@@ -7,6 +7,10 @@ target_include_directories(
     PRIVATE ${POCO_ROOT}/Net/include
     PRIVATE ${POCO_ROOT}/NetSSL_Win/include
 )
+target_compile_definitions(
+    cserver
+    PRIVATE POCO_NO_AUTOMATIC_LIBS
+)
 target_link_libraries(
     cserver	
     PRIVATE ${POCO_ROOT}/lib64/PocoFoundation$<$<CONFIG:Debug>:d>.lib

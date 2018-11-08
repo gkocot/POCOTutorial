@@ -87,7 +87,19 @@ public:
         if (request.getURI() == "/") {
             path += "index.html";
         }
-        response.sendFile(path, "text/html");
+		try {
+			response.sendFile(path, "text/html");
+		}
+		catch (const Poco::FileNotFoundException &) {
+			response.setStatusAndReason(HTTPServerResponse::HTTP_NOT_FOUND);
+			response.setContentLength(0);
+			response.send();
+		}
+		catch (const Poco::OpenFileException &) {
+			response.setStatusAndReason(HTTPServerResponse::HTTP_INTERNAL_SERVER_ERROR);
+			response.setContentLength(0);
+			response.send();
+		}
     }
 };
 
