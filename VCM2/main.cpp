@@ -21,6 +21,7 @@
 #include "Poco/Net/SecureStreamSocket.h"
 #include "Poco/Net/SecureServerSocket.h"
 #include "Poco/Net/X509Certificate.h"
+#include "Poco/Net/KeyConsoleHandler.h"
 #include "Poco/Timestamp.h"
 #include "Poco/DateTimeFormatter.h"
 #include "Poco/DateTimeFormat.h"
@@ -59,6 +60,8 @@ using Poco::Util::OptionSet;
 using Poco::Util::HelpFormatter;
 using Poco::Net::SSLManager;
 using Poco::Net::Context;
+using Poco::Net::KeyConsoleHandler;
+using Poco::Net::PrivateKeyPassphraseHandler;
 using Poco::Net::InvalidCertificateHandler;
 using Poco::Net::AcceptCertificateHandler;
 

@@ -12,7 +12,7 @@ target_link_libraries(
     PRIVATE ${POCO_ROOT}/lib64/PocoFoundation$<$<CONFIG:Debug>:d>.lib
     PRIVATE ${POCO_ROOT}/lib64/PocoUtil$<$<CONFIG:Debug>:d>.lib
     PRIVATE ${POCO_ROOT}/lib64/PocoNet$<$<CONFIG:Debug>:d>.lib
-	PRIVATE ${POCO_ROOT}/lib64/PocoNetSSLWin$<$<CONFIG:Debug>:d>.lib
+	PRIVATE ${POCO_ROOT}/lib64/PocoNetSSL$<$<CONFIG:Debug>:d>.lib
 )
 
 #TBD Install step, exe + dll in one location so the app can run.
