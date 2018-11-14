@@ -27,6 +27,7 @@
 #include "Poco/DateTimeFormat.h"
 #include "Poco/Exception.h"
 #include "Poco/SharedPtr.h"
+#include "Poco/Path.h"
 #include "Poco/Util/ServerApplication.h"
 #include "Poco/Util/Option.h"
 #include "Poco/Util/OptionSet.h"
@@ -69,7 +70,9 @@ using Poco::Net::AcceptCertificateHandler;
 class LoginRequestHandler : public HTTPRequestHandler {
 public:
     void handleRequest(HTTPServerRequest & request, HTTPServerResponse & response) override {
-
+        response.setStatusAndReason(HTTPServerResponse::HTTP_FORBIDDEN);
+        response.setContentLength(0);
+        response.send();
     }
 };
 
@@ -87,19 +90,34 @@ public:
         if (request.getURI() == "/") {
             path += "index.html";
         }
-		try {
-			response.sendFile(path, "text/html");
-		}
-		catch (const Poco::FileNotFoundException &) {
-			response.setStatusAndReason(HTTPServerResponse::HTTP_NOT_FOUND);
-			response.setContentLength(0);
-			response.send();
-		}
-		catch (const Poco::OpenFileException &) {
-			response.setStatusAndReason(HTTPServerResponse::HTTP_INTERNAL_SERVER_ERROR);
-			response.setContentLength(0);
-			response.send();
-		}
+        try {
+            string mediaType;
+            
+			if (Poco::Path(path).getExtension() == "html") {
+                mediaType = "text/html";
+            }
+            else if (Poco::Path(path).getExtension() == "css") {
+                mediaType = "text/css";
+            }
+            else if (Poco::Path(path).getExtension() == "js") {
+                mediaType = "application/javascript";
+            }
+            else {
+                mediaType = "text/plain";
+            }
+
+            response.sendFile(path, mediaType);
+        }
+        catch (const Poco::FileNotFoundException &) {
+            response.setStatusAndReason(HTTPServerResponse::HTTP_NOT_FOUND);
+            response.setContentLength(0);
+            response.send();
+        }
+        catch (const Poco::OpenFileException &) {
+            response.setStatusAndReason(HTTPServerResponse::HTTP_INTERNAL_SERVER_ERROR);
+            response.setContentLength(0);
+            response.send();
+        }
     }
 };
 

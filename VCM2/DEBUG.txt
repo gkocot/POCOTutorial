@@ -1,0 +1,14 @@
+To debug the project:
+
+1.
+Generate Visual Studio project:
+mkdir build
+cd build
+cmake -G "Visual Studio 15 2017 Win64" -DPOCO_ROOT=c:\libs\poco ..
+
+2.
+Open the build\POCOTutorial.sln solution.
+
+3.
+Add PATH=%PATH%;c:\libs\poco\bin64;c:\libs\openssl\1.1.1\x64\bin
+to cserver/Configuration Properties/Debugging/Environment

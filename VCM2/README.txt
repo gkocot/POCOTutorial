@@ -1,0 +1,1 @@
+Copy content of conf and ssl folders to build\VCM2.
